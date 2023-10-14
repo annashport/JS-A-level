@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 String: greeting
+        let yourName = prompt("Введіть ім'я")
+        alert("Привіт, " + yourName + " !")
+
+        // 2 String: gopni4ek
+        const yourText = prompt("Введіть рядок:");
+        const arr = yourText.split(',');
+        const resultText = arr.join(', блін');
+        alert(resultText);
+
+        // 3 String: capitalize
+        let str = "cANBerRa"
+        let result = str[0].toUpperCase() + str.slice(1).toLowerCase();
+        console.log(result) //Canberra
+
+        // 4 String: word count
+        let yourText2 = "hello world";
+        console.log(yourText2.split(' ').length);
+
+        // 5 String: credentials
+        let name = prompt('введіть ім\'я').trim();
+        let name1 = name[0].toUpperCase() + name.slice(1).toLowerCase();
+
+        let fathername = prompt('введіть по батькові').trim();
+        let fathername1 = fathername[0].toUpperCase() + fathername.slice(1).toLowerCase();
+
+        let surname = prompt('введіть фамілію').trim();
+        let surname1 = surname[0].toUpperCase() + surname.slice(1).toLowerCase();
+
+        alert("Ваш ПІБ: " + name1 + ", " + fathername1 + ", " + surname1);
+
+        // 6 String: beer
+        let pivo = "Було жарко. Василь пив пиво вприкуску з креветками";
+        let tea = pivo.replace('пиво', 'чай');
+        alert(tea);
+
+        // 7 String: no tag
+        let str1 = "якийсь текст, в якому є один тег <br /> і всяке інше";
+        let startIndex = str1.indexOf("<");
+        let endIndex = str1.indexOf(">");
+        newStr = str1.slice(0, startIndex) + str1.slice(endIndex + 1);
+        console.log(newStr);
+
+        // 8 String: big tag
+        let str2 = "якийсь текст у якому є один тег <br /> і всяке інше";
+        let startIndex2 = str2.indexOf("<br />");
+        newStr2 = str2.slice(0, startIndex2) + str2.slice(startIndex2, startIndex2 + 6).toUpperCase() + str2.slice(startIndex2 + 6);
+        console.log(newStr2);
+
+        // String: new line
+        const yourText1 = prompt(`Введіть рядок позначаючи новий рядок символом "\\n":`);
+        const arr1 = yourText1.split('\\n');
+        const resultText1 = arr1.join('\n');
+        alert(resultText1);
+
+        // String: youtube
+        const youtubeLinkRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|u\/\w\/|shorts\/)?([^?&\/]+)(?:[?&][^&]+)?/;
+
+        const userInput = prompt("Введіть текст з посиланням на YouTube:");
+        const match = userInput.match(youtubeLinkRegex);
+        const videoId = match && match[1];
+        const embedCode = `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>`;
+
+        document.write(embedCode);
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 assign: evaluation
+        var a = 5;
+        var b, c;
+        b = (a * 5);
+        b = (c = (b / 2));
+        // b = (a * 5): У цьому виразі спершу обчислюється вираз a * 5, де a має значення 5, отже a * 5 дорівнює 25, потім результат цього обчислення присвоюється змінній b
+        // b = (c = (b / 2)): У цьому виразі спершу обчислюється вираз b / 2, де b має значення 25, отже b / 2 дорівнює 12.5. Потім результат цього обчислення присвоюється змінній c, отримує значення 12.5, потім присвоюється змінній b
+
+        // 2 Number: age
+        var age = +prompt("Скільки вам років?");
+        var birthYear = 2023 - age;
+        alert("Ваш рік народження: " + birthYear);
+
+        // 3 Number: temperature
+        var c = +prompt("Назвіть температуру в градусах Цельсія");
+        var f = c * (9 / 5) + 32;
+        alert("Ваша температура в градусах Цельсія матиме таке значення в Фаренгейтах" + f);
+
+        // 4 Number: divide
+        const rate = 27.50; // Приклад курсу валюти (замініть його на потрібний)
+        var amountInCurrency = +prompt("Введіть суму в одній валюті:");
+        var exchangedAmount = (amountInCurrency * rate).toFixed(2);
+        alert("Результат обміну: " + exchangedAmount);
+
+        // Number: RGB
+        var red = +prompt("Введіть значення червоного (red) (0-255):");
+        var green = +prompt("Введіть значення зеленого (green) (0-255):");
+        var blue = +prompt("Введіть значення синього (blue) (0-255):");
+
+        var redHex = red.toString(16);
+        var greenHex = green.toString(16);
+        var blueHex = blue.toString(16);
+
+        var cssColor = "#" + redHex + greenHex + blueHex;
+        alert("CSS-колір: " + cssColor);
+
+        // Number: flats
+        var totalFloors = +prompt("Введіть кількість поверхів в будинку:");
+        var apartmentsPerFloor = +prompt("Введіть кількість квартир на поверсі:");
+        var apartmentNumber = +prompt("Введіть номер квартири:");
+
+        var totalApartments = totalFloors * apartmentsPerFloor; // Загальна кількість квартир в будинку
+
+        var entrance = Math.ceil(apartmentNumber / totalApartments); // Розрахунок під'їзду
+        var floorInEntrance = Math.ceil((apartmentNumber % totalApartments) / apartmentsPerFloor); // Розрахунок поверху
+        alert("Квартира номер " + apartmentNumber + " знаходиться у " + entrance + " під'їзді на " + floorInEntrance + " поверсі.");
+    </script>
+</body>
+
+</html>
