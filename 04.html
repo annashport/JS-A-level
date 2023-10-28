@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 Number: odd
+        let number = prompt("введіть число");
+        if (!!Number(number)) {
+            alert("це число");
+        }
+        else {
+            alert('не число');
+        }
+        if (number % 2) {
+            alert("число не парне");
+        }
+        else {
+            alert("число парне");
+        }
+
+        // 2 String: lexics
+        let someText = prompt("введіть текст");
+        if (someText.indexOf("бл") >= 0) {
+            alert("не матюкайтесь!");
+        }
+        else {
+            alert("молодець!")
+        }
+
+        // 3 Boolean
+        const answer1 = confirm("Чи любите ви котиків?");
+        const answer2 = confirm("Хочете побачити бабая?");
+        console.log(answer1, answer2);
+
+        // 4 Boolean: if
+        if (answer2) {
+            alert("ви хоробрий!")
+        }
+        else {
+            alert("я теж його боюсь.")
+        }
+
+        // 5 Comparison: sizes
+        let chooseSize = prompt("оберіть розмір: 40, 42, 44, 46, 48, 50, 52, 54");
+        if (+chooseSize == 40) {
+            alert("відповідний італійський розмір: 38")
+        } else if (+chooseSize == 42) {
+            alert("відповідний італійський розмір: 40")
+        } else if (+chooseSize == 44) {
+            alert("відповідний італійський розмір: 42")
+        } else if (+chooseSize == 46) {
+            alert("відповідний італійський розмір: 44")
+        } else if (+chooseSize == 48) {
+            alert("відповідний італійський розмір: 46")
+        } else if (+chooseSize == 50) {
+            alert("відповідний італійський розмір: 48")
+        } else if (+chooseSize == 52) {
+            alert("відповідний італійський розмір: 50")
+        } else if (+chooseSize == 54) {
+            alert("відповідний італійський розмір: 52")
+        }
+
+        // 6 Ternary
+        const sex = confirm("ви жінка?");
+        let sexIs = sex ? alert("так, ви жніка") : alert("ви чоловік");
+
+        // 7 Training
+
+        // 8 Prompt: or
+        let age = prompt("скільки вам років?") || alert('спробуйте знову ввести свій вік');
+
+        // 9 Confirm: or this days
+        let shopping = confirm('шопінг?') || alert('ти - бяка')
+
+        // 10 Confirm: if this days
+        if (!shopping) {
+            alert('ти - бяка')
+        }
+
+        // 11 Default: or
+        let name = prompt('введіть ім\'я') || "Іван";
+        let fathername = prompt('введіть по батькові') || "Іванович";
+        let surname = prompt('введіть фамілію') || "Іванов";
+        alert("Ваш ПІБ: " + name + ", " + fathername + ", " + surname);
+
+        // 12 Default: if
+        let name1 = prompt('введіть ім\'я')
+        if (name1) {
+            name2 = name1
+        }
+        else {
+            name2 = "Іван"
+        }
+        let fathername1 = prompt('введіть по батькові')
+        if (fathername1) {
+            fathername2 = fathername1
+        }
+        else {
+            fathername2 = "Іванович"
+        }
+        let surname1 = prompt('введіть фамілію')
+        if (surname1) {
+            surname2 = surname1
+        }
+        else {
+            surname2 = "Іванов"
+        }
+        alert("Ваш ПІБ: " + name2 + ", " + fathername2 + ", " + surname2);
+
+        // 13 Login and password
+        const login = prompt("введіть логін")
+        if (login.indexOf("admin") >= 0) {
+            alert('вітаю!');
+            const password = prompt("введіть пароль")
+            if (password.indexOf("qwerty") >= 0) {
+            }
+            else {
+                alert('неправильний логін або пароль');
+            }
+        }
+        else {
+            alert('неправильний логін або пароль');
+        }
+
+        // 14 Currency exchange
+        let currency = prompt("Будь ласка, введіть валюту (наприклад, USD, EUR):").toUpperCase();
+        let isBuying = confirm("Ви бажаєте купити валюту? Якщо ні, ви будете її продавати.");
+        let rate;
+
+        if (currency === "USD") {
+            rate = isBuying ? 37.96 : 37.85;
+        } else if (currency === "EUR") {
+            rate = isBuying ? 40.35 : 40.15;
+        } else {
+            alert("Валюта не підтримується.");
+        }
+
+        if (rate !== undefined) {
+            let amount = parseFloat(prompt("Введіть суму для обміну:"));
+
+            if (!isNaN(amount) && amount > 0) {
+                let result = amount / rate;
+                alert("Результат обміну: " + result.toFixed(2) + " " + currency);
+            } else {
+                alert("Введена некоректна сума.");
+            }
+        }
+
+
+        // 15 Scissors
+        const userChoice = prompt("оберіть: камінь, ножиці або папір").toLowerCase();
+        const computerOptions = ["камінь", "ножиці", "папір"];
+        const computerChoice = computerOptions[Math.floor(Math.random() * computerOptions.length)];
+        let winner;
+
+        if (userChoice === computerChoice) {
+            winner = "нічия";
+        } else if (
+            (userChoice === "камінь" && computerChoice === "ножиці") ||
+            (userChoice === "ножиці" && computerChoice === "папір") ||
+            (userChoice === "папір" && computerChoice === "камінь")
+        ) {
+            winner = "ви перемогли!";
+        } else {
+            winner = "комп'ютер переміг.";
+        }
+
+        alert(`ви вибрали: ${userChoice}\nкомп'ютер вибрав: ${computerChoice}\n${winner}`);
+
+    </script>
+</body>
+
+</html>
