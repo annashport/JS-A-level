@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 Literals
+        {
+            const cat = {
+                name: "Мурчик",
+                weight: 6,
+                color: "рудий"
+            }
+        }
+        // 2 Literals expand
+        {
+            const cat = {
+                name: "Мурчик",
+                weight: 6,
+                color: "рудий",
+                [prompt('Введіть потрібний ключ')]: [prompt("Введіть ключ")],
+                [prompt('Введіть потрібний ключ')]: [prompt("Введіть ключ")]
+            }
+            console.log(cat)
+        }
+        // 3 Literals copy
+        {
+            const cat = {
+                name: "Мурчик",
+                weight: 6,
+                color: "рудий",
+                [prompt('Введіть потрібний ключ')]: [prompt("Введіть значення для ключа")],
+                [prompt('Введіть потрібний ключ')]: [prompt("Введіть значення для ключа")]
+            }
+            const newCat = cat
+            newCat[prompt("Введіть ключ")] = prompt('Введіть значення для ключа')
+            console.log(cat)
+        }
+        // 4 Html tree
+        {
+            let body = {
+                tagName: 'body',
+                children: [
+                    {
+                        tagName: 'div',
+                        children: [
+                            {
+                                tagName: 'span',
+                                children: ["Enter a data please:"],
+                            },
+                            {
+                                tagName: 'br',
+                            },
+                            {
+                                tagName: 'input',
+                                attrs: {
+                                    type: "text",
+                                    id: 'name',
+                                },
+                            },
+                            {
+                                tagName: 'input',
+                                attrs: {
+                                    type: "text",
+                                    id: 'surname',
+                                },
+                            },
+                        ]
+                    },
+                    {
+                        tagName: 'div',
+                        children: [
+                            {
+                                tagName: 'button',
+                                children: ["OK"],
+                                attrs: {
+                                    id: 'ok',
+                                }
+                            },
+                            {
+                                tagName: 'button',
+                                children: ["Cancel"],
+                                attrs: {
+                                    id: 'cancel',
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+            console.log(body.children[1].children[1].children)
+            console.log(body.children[0].children[3].attrs.id)
+        }
+        // 5 Parent
+        {
+            body.children[0].parentElement = body;
+            body.children[1].parentElement = body;
+            body.children[0].children[0].parentElement = body.children[0];
+            body.children[0].children[1].parentElement = body.children[0];
+            body.children[0].children[2].parentElement = body.children[0];
+            body.children[0].children[3].parentElement = body.children[0];
+            body.children[1].children[0].parentElement = body.children[1];
+            body.children[1].children[1].parentElement = body.children[1];
+        }
+        // 6 Change OK
+        {
+            let body = {
+                tagName: 'body',
+                children: [
+                    {
+                        tagName: 'div',
+                        children: [
+                            {
+                                tagName: 'span',
+                                children: ["Enter a data please:"],
+                            },
+                            {
+                                tagName: 'br',
+                            },
+                            {
+                                tagName: 'input',
+                                attrs: {
+                                    type: "text",
+                                    id: 'name',
+                                },
+                            },
+                            {
+                                tagName: 'input',
+                                attrs: {
+                                    type: "text",
+                                    id: 'surname',
+                                },
+                            },
+                        ]
+                    },
+                    {
+                        tagName: 'div',
+                        children: [
+                            {
+                                tagName: 'button',
+                                children: ["OK"],
+                                attrs: {
+                                    id: 'ok',
+                                }
+                            },
+                            {
+                                tagName: 'button',
+                                children: ["Cancel"],
+                                attrs: {
+                                    id: 'cancel',
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+            const newBody = body
+            newBody.children[1].children[0].attrs[prompt("Введіть ключ")] = prompt('Введіть значення для ключа')
+            console.log(body.children[1].children[0].attrs)
+        }
+        // 7 Destructure
+        {
+            const {
+                children: [
+                    {
+                        children: [spanText, , , input2],
+                    },
+                    {
+                        children: [, button2],
+                    },
+                ],
+            } = body;
+            console.log(spanText.children);
+            console.log(button2.children[0]);
+            console.log(input2.attrs.id);
+        }
+        // 8 Destruct array
+        {
+            let arr = [1, 2, 3, 4, 5, "a", "b", "c"]
+            let [even1, even2, ...oddArr] = arr.filter((item) => typeof item === "number" && item % 2 === 0);
+            let [odd1, odd2, odd3, ...lettersArr] = oddArr;
+        }
+        // 9 Destruct string
+        {
+            let arr = [1, "abc"]
+            let elseArr = arr[1].split("")
+            let [number] = arr.filter((item) => typeof item === "number");
+            let [s1, s2, s3] = elseArr;
+        }
+        //  10 Destruct 2
+        {
+            let obj = {
+                name: 'Ivan',
+                surname: 'Petrov',
+                children: [{ name: 'Maria' }, { name: 'Nikolay' }]
+            }
+            let { children: [name1, name2] } = obj
+        }
+        // 11 Destruct 3
+        {
+            let arr = [1, 2, 3, 4, 5, 6, 7, 10]
+            const { 0: a, 1: b, length } = arr
+        }
+        // 12 Copy delete
+        {
+            const cat = {
+                name: "Мурчик",
+                weight: 6,
+                color: "рудий",
+                [prompt('Введіть потрібний ключ')]: [prompt("Введіть ключ")],
+                [prompt('Введіть потрібний ключ')]: [prompt("Введіть ключ")]
+            }
+            const keyToDelete = prompt("Введіть ключ, який потрібно видалити");
+            const { [keyToDelete]: deletedKey, ...catWithoutDeletedKey } = cat;
+            console.log("Початковий об'єкт cat:", cat);
+            console.log("Об'єкт без видаленого ключа:", catWithoutDeletedKey);
+            console.log(`Видалений ключ "${keyToDelete}": ${deletedKey}`);
+        }
+        // 13 Currency real rate
+        {
+            fetch('https://open.er-api.com/v6/latest/USD')
+                .then(res => res.json())
+                .then(data => {
+                    // Тут ви можете вивчити структуру даних, отриманих з сервера
+                    console.log(data);
+
+                    // Введення користувача
+                    let inputCurrency = prompt('Введіть вхідну валюту (наприклад, USD):').toUpperCase();
+                    let outputCurrency = prompt('Введіть валюту для конвертації (наприклад, EUR):').toUpperCase();
+                    let amount = parseFloat(prompt('Введіть суму в вхідній валюті:'));
+
+                    // Перевірка введених даних
+                    if (!data.rates[inputCurrency] || !data.rates[outputCurrency] || isNaN(amount)) {
+                        console.log('Неправильні вхідні дані');
+                        return;
+                    }
+
+                    // Обчислення конвертації
+                    let exchangeRate = data.rates[outputCurrency] / data.rates[inputCurrency];
+                    let result = amount * exchangeRate;
+
+                    // Виведення результату
+                    console.log(`${amount} ${inputCurrency} = ${result.toFixed(2)} ${outputCurrency}`);
+                })
+                .catch(error => console.error('Помилка при отриманні даних:', error));
+        }
+        // 14 Currency drop down
+        {
+            fetch('https://open.er-api.com/v6/latest/USD')
+                .then(res => res.json())
+                .then(data => {
+                    const currencies = Object.keys(data.rates);
+                    // Створення рядкової змінної для HTML-коду
+                    let htmlOptions = '<select id="inputCurrency"><option value="">Список всіх можливих валют</option>';
+                    // Додавання валют 
+                    currencies.forEach(currency => {
+                        htmlOptions += `<option value="${currency}">${currency}</option>`;
+                    });
+                    htmlOptions += '</select>';
+                    document.body.innerHTML = htmlOptions;
+                })
+                .catch(error => console.error('Помилка при отриманні даних:', error));
+        }
+        // 15 Currency table
+        {
+            fetch('https://open.er-api.com/v6/latest/USD')
+                .then(res => res.json())
+                .then(data => {
+                    const currencies = Object.keys(data.rates);
+
+                    let tableHTML = '<table border="1"><tr><td>Валюта</td>';
+
+                    // Додавання назв валют у рядок заголовку
+                    currencies.forEach(currency => {
+                        tableHTML += `<td>${currency}</td>`;
+                    });
+                    tableHTML += '</tr>';
+
+                    // Заповнення таблиці курсами
+                    currencies.forEach(baseCurrency => {
+                        tableHTML += `<tr><td>${baseCurrency}</td>`;
+
+                        currencies.forEach(targetCurrency => {
+                            // Розрахунок курсу між валютами
+                            const crossRate = data.rates[targetCurrency] / data.rates[baseCurrency];
+
+                            // Додавання курсу до таблиці
+                            tableHTML += `<td>${crossRate.toFixed(2)}</td>`;
+                        });
+                        tableHTML += '</tr>';
+                    });
+                    tableHTML += '</table>';
+                    document.body.innerHTML = tableHTML;
+                })
+                .catch(error => console.error('Помилка при отриманні даних:', error));
+        }
+        // 16 Form
+        {
+            const car = {
+                "Name": "chevrolet chevelle malibu",
+                "Cylinders": 8,
+                "Displacement": 307,
+                "Horsepower": 130,
+                "Weight_in_lbs": 3504,
+                "Origin": "USA",
+                "in_production": false
+            };
+            let ourObject = car;
+
+            function getInputType(value) {
+                if (typeof value === 'number') {
+                    return 'number';
+                } else if (typeof value === 'boolean') {
+                    return 'checkbox';
+                } else {
+                    return 'text';
+                }
+            }
+
+            let formHTML = '<form>';
+            for (const key in ourObject) {
+                if (ourObject.hasOwnProperty(key)) {
+                    const value = ourObject[key];
+                    const inputType = getInputType(value);
+
+                    if (inputType === 'checkbox') {
+                        formHTML += `<label>${key}: <input type="${inputType}" ${value ? 'checked' : ''} /></label>`;
+                    } else {
+                        formHTML += `<label>${key}: <input type="${inputType}" value="${value}" /></label>`;
+                    }
+                }
+            }
+            formHTML += '</form>';
+            document.body.innerHTML = formHTML;
+        }
+        // 17 Table
+        {
+            const persons = [
+                {
+                    name: 'Марія',
+                    fatherName: 'Іванівна',
+                    surname: 'Іванова',
+                    sex: 'female'
+                },
+                {
+                    name: 'Миколай',
+                    fatherName: 'Іванович',
+                    surname: 'Іванов',
+                    age: 15
+                },
+                {
+                    name: 'Петро',
+                    fatherName: 'Іванович',
+                    surname: 'Іванов',
+                    married: true
+                }
+            ];
+
+            // Перший прохід - пошук колонок
+            const columns = [];
+            persons.forEach(person => {
+                for (const key in person) {
+                    if (!columns.includes(key)) {
+                        columns.push(key);
+                    }
+                }
+            });
+
+            // Заголовок таблиці
+            let tableHTML = '<table border="1"><tr>';
+            columns.forEach(column => {
+                tableHTML += `<th>${column}</th>`;
+            });
+            tableHTML += '</tr>';
+
+            // Другий прохід - відображення таблиці
+            persons.forEach(person => {
+                tableHTML += '<tr>';
+                columns.forEach(column => {
+                    const cellValue = person[column];
+                    tableHTML += `<td>${cellValue !== undefined ? cellValue : ''}</td>`;
+                });
+                tableHTML += '</tr>';
+            });
+
+            tableHTML += '</table>';
+            document.body.innerHTML = tableHTML;
+        }
+
+
+    </script>
+</body>
+
+</html>
