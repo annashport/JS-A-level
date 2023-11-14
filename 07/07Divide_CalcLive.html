@@ -1,0 +1,55 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculator</title>
+    </head>
+    <body>
+    <!-- Divide -->
+    <input type='number' id="amountInCurrency" placeholder="Введіть суму в одній валюті:" />
+    <div id="exchangedAmountResult">Результат обміну: </div>
+    
+    <script>
+        const rate = 27.50; // Приклад курсу валюти (замініть його на потрібний)
+        const amountInCurrencyInput = document.getElementById("amountInCurrency");
+        const exchangedAmountResult = document.getElementById("exchangedAmountResult");
+    
+        const calculateExchangedAmount = () => {
+            const amountInCurrency = +amountInCurrencyInput.value;
+            const exchangedAmount = (amountInCurrency * rate).toFixed(2);
+            exchangedAmountResult.innerHTML = "Результат обміну: " + exchangedAmount;
+        };
+    
+        amountInCurrencyInput.addEventListener('input', calculateExchangedAmount);
+    </script>
+    
+<!-- Calc Live -->
+    <label for="price">Ціна за манік'юр:</label>
+    <input type="number" id="price" value="350">
+    
+    <label for="trips">Кількість походів в місяць:</label>
+    <input type="number" id="trips" value="1">
+    
+    <label for="missedTrips">Пропущені походи в рік:</label>
+    <input type="number" id="missedTrips" value="2">
+    
+    <button onclick="calculateManicurePrice()">Розрахувати вартість</button>
+    
+    <div id="result">Результат: </div>
+    
+    <script>
+        function calculateManicurePrice() {
+            const priceForAManicure = parseFloat(document.getElementById("price").value) || 0;
+            const numOfTripsPerMonth = parseInt(document.getElementById("trips").value) || 0;
+            const missedTrip = parseInt(document.getElementById("missedTrips").value) || 0;
+    
+            const numOfTripsPerYear = numOfTripsPerMonth * 12;
+            const result = (numOfTripsPerYear - missedTrip) * priceForAManicure;
+    
+            document.getElementById("result").innerHTML = "Результат: " + result.toFixed(2);
+        }
+    </script>
+
+    </body>
+    </html>

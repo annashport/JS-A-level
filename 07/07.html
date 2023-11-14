@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 Temperature
+        {
+            let celsiusToFahrenheit = celsiusTemperature => {
+                const fahrenheitTemperature = (celsiusTemperature * 9 / 5) + 32;
+                return fahrenheitTemperature;
+            }
+        }
+        // 2 RGB
+        {
+            let turnToRGB = (r, g, b) => {
+                const newR = (r < 16) ? `0${r.toString(16)}` : r.toString(16);
+                const newG = (g < 16) ? `0${g.toString(16)}` : g.toString(16);
+                const newB = (b < 16) ? `0${b.toString(16)}` : b.toString(16);
+
+                return '#' + newR + newG + newB;
+            }
+            console.log(turnToRGB(10, 15, 100))
+        }
+        // 3 Flats
+        {
+            let apartmentPlace = (totalFloors, apartmentsPerFloor, apartmentNumber) => {
+                var totalApartments = totalFloors * apartmentsPerFloor;
+
+                var entrance = Math.ceil(apartmentNumber / totalApartments);
+                var floorInEntrance = Math.ceil((apartmentNumber % totalApartments) / apartmentsPerFloor);
+
+                return { entrance: entrance, floor: floorInEntrance };
+            }
+            console.log(apartmentPlace(9, 15, 36))
+        }
+        // 4 Credentials
+        {
+            let enterPerson = () => {
+                const capitalize = str => {
+                    let result = str[0].toUpperCase() + str.slice(1).toLowerCase();
+                    return result
+                }
+                const person = {}
+
+                const name = prompt('Введіть ім\'я')
+                let newName = capitalize(name)
+                if (newName) person.newName = newName
+
+                const fatherName = prompt('Введіть по-батькові')
+                let newFatherName = capitalize(fatherName)
+                if (newFatherName) person.newFatherName = newFatherName
+
+                const surname = prompt('Введіть прізвище')
+                let newSurname = capitalize(surname)
+                if (newSurname) person.newSurname = newSurname
+
+                return person
+            }
+            const person = enterPerson()
+            console.log(person)
+        }
+        // 5 New line
+        {
+            const yourText = prompt(`Введіть рядок позначаючи новий рядок символом "\\n":`);
+            let fNewLine = str => {
+                const arr = str.split('\\n');
+                const resultText = arr.join('\n');
+                return resultText
+            }
+            console.log(fNewLine(yourText))
+        }
+        // 6 Prompt OR
+        {
+            let funcAge = () => {
+                let yourAge = prompt("скільки вам років?")
+                let elseAge = 18
+                let newAge = yourAge || elseAge
+                return newAge
+            }
+            let age = funcAge()
+            console.log(age)
+        }
+        // 7 Login And Password
+        {
+            const trueLogin = 'admin'
+            const truePassword = 'admin123'
+            let logInFunc = () => {
+                const login = prompt("введіть логін")
+                const password = prompt("введіть пароль")
+                if (login == trueLogin && password == truePassword) {
+                    return true
+                } else {
+                    return false
+                }
+            }
+            let result = logInFunc()
+            console.log(result)
+        }
+        // 8 For Table
+        {
+            let tableFunc = (arr) => {
+                let html = "<table>";
+                for (let i = 0; i < arr.length; i++) {
+                    html += "<tr>";
+                    for (let j = 0; j < arr[i].length; j++) {
+                        let number = arr[i][j];
+                        let backgroundColor = i % 2 === 0 ? "lightgreen" : "darkgreen";
+                        html += `<td style="background-color: ${backgroundColor}">${number}</td>`;
+                    }
+                    html += "</tr>";
+                }
+                html += "</table>";
+                return html;
+            }
+            const mul = [
+                [0, 0, 0, 0, 0, 0],
+                [0, 1, 2, 3, 4, 5],
+                [0, 2, 4, 6, 8, 10],
+                [0, 3, 6, 9, 12, 15],
+                [0, 4, 8, 12, 16, 20],
+                [0, 1, 10, 15, 20, 25],
+            ];
+            const htmlTable = tableFunc(mul);
+            document.write(htmlTable);
+        }
+        // 9 Filter Lexics
+        {
+            const badWords = ['блін', 'бляха', 'курва'];
+            let userWords = prompt('введіть рядок');
+            let wordValidFunc = (str, arrOfBadWords) => {
+                const isWordValid = word => !arrOfBadWords.includes(word);
+                const arrOfWords = str.split(" ").filter(isWordValid);
+                const result = arrOfWords.join(" ");
+                return result
+            }
+            let newStr = wordValidFunc(userWords, badWords)
+            console.log(newStr)
+        }
+        // 10 Currency Table
+        {
+            let fetchDataAndDisplayTable = () => {
+                fetch('https://open.er-api.com/v6/latest/USD')
+                    .then(res => res.json())
+                    .then(data => {
+                        const currencies = Object.keys(data.rates);
+                        const tableData = [];
+
+                        // Add header row to tableData
+                        const headerRow = ['Валюта', ...currencies];
+                        tableData.push(headerRow);
+
+                        // Fill tableData with exchange rates
+                        currencies.forEach(baseCurrency => {
+                            const row = [baseCurrency];
+
+                            currencies.forEach(targetCurrency => {
+                                // Calculate exchange rate between currencies
+                                const crossRate = data.rates[targetCurrency] / data.rates[baseCurrency];
+                                row.push(crossRate.toFixed(2));
+                            });
+
+                            tableData.push(row);
+                        });
+
+                        // Display the table using tableFunc
+                        document.body.innerHTML = tableFunc(tableData);
+                    })
+                    .catch(error => console.error('Помилка при отриманні даних:', error));
+            };
+            let tableFunc = (arr) => {
+                let html = "<table border='1'>";
+                for (let i = 0; i < arr.length; i++) {
+                    html += "<tr>";
+                    for (let j = 0; j < arr[i].length; j++) {
+                        let number = arr[i][j];
+                        let backgroundColor = i % 2 === 0 ? "lightgreen" : "darkgreen";
+                        html += `<td style="background-color: ${backgroundColor}">${number}</td>`;
+                    }
+                    html += "</tr>";
+                }
+                html += "</table>";
+                return html;
+            };
+            fetchDataAndDisplayTable();
+        }
+        // 11 Form
+        {
+            const car = {
+                "Name": "chevrolet chevelle malibu",
+                "Cylinders": 8,
+                "Displacement": 307,
+                "Horsepower": 130,
+                "Weight_in_lbs": 3504,
+                "Origin": "USA",
+                "in_production": false
+            };
+            let objFunc = (obj) => {
+                let getInputType = (value) => {
+                    if (typeof value === 'number') {
+                        return 'number';
+                    } else if (typeof value === 'boolean') {
+                        return 'checkbox';
+                    } else {
+                        return 'text';
+                    }
+                };
+
+                let formHTML = '<form>';
+                for (const key in obj) {
+                    if (obj.hasOwnProperty(key)) {
+                        const value = obj[key];
+                        const inputType = getInputType(value);
+
+                        if (inputType === 'checkbox') {
+                            formHTML += `<label>${key}: <input type="${inputType}" ${value ? 'checked' : ''} /></label>`;
+                        } else {
+                            formHTML += `<label>${key}: <input type="${inputType}" value="${value}" /></label>`;
+                        }
+                    }
+                }
+                formHTML += '</form>';
+                return formHTML;
+            };
+            const htmlForm = objFunc(car);
+            document.write(htmlForm);
+        }
+        // 12 Array of objects sort
+        {
+            function sort(array, field, ascending = true) {
+                const compareFunction = (a, b) => {
+                    const valueA = a[field];
+                    const valueB = b[field];
+
+                    if (typeof valueA === 'string' && typeof valueB === 'string') {
+                        // Сортування рядків без врахування регістру
+                        return ascending ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+                    } else {
+                        // Сортування чисел або інших типів
+                        return ascending ? valueA - valueB : valueB - valueA;
+                    }
+                };
+                return array.slice().sort(compareFunction);
+            }
+            var persons = [
+                { name: "Іван", age: 17 },
+                { name: "Марія", age: 35 },
+                { name: "Олексій", age: 73 },
+                { name: "Яків", age: 12 },
+            ];
+            console.log(sort(persons, "age"));
+            console.log(sort(persons, "name", false));
+        }
+        // 13 Table
+        {
+            function displaySortedTable(array, sortField, ascending = true) {
+                // Копіюємо вихідний масив, щоб сортування не змінило оригінал
+                const sortedArray = sort([...array], sortField, ascending);
+
+                // Перший прохід - пошук колонок
+                const columns = [];
+                sortedArray.forEach(item => {
+                    for (const key in item) {
+                        if (!columns.includes(key)) {
+                            columns.push(key);
+                        }
+                    }
+                });
+
+                // Заголовок таблиці
+                let tableHTML = '<table border="1"><tr>';
+                columns.forEach(column => {
+                    tableHTML += `<th>${column}</th>`;
+                });
+                tableHTML += '</tr>';
+
+                // Другий прохід - відображення таблиці
+                sortedArray.forEach(item => {
+                    tableHTML += '<tr>';
+                    columns.forEach(column => {
+                        const cellValue = item[column];
+                        tableHTML += `<td>${cellValue !== undefined ? cellValue : ''}</td>`;
+                    });
+                    tableHTML += '</tr>';
+                });
+
+                tableHTML += '</table>';
+                document.body.innerHTML = tableHTML;
+            }
+
+            // Функція сортування
+            function sort(array, field, ascending = true) {
+                const compareFunction = (a, b) => {
+                    const valueA = a[field];
+                    const valueB = b[field];
+
+                    if (typeof valueA === 'string' && typeof valueB === 'string') {
+                        // Сортування рядків без врахування регістру
+                        return ascending ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+                    } else {
+                        // Сортування чисел або інших типів
+                        return ascending ? valueA - valueB : valueB - valueA;
+                    }
+                };
+                return array.slice().sort(compareFunction);
+            }
+            const persons = [
+                {
+                    name: 'Марія',
+                    fatherName: 'Іванівна',
+                    surname: 'Іванова',
+                    sex: 'female'
+                },
+                {
+                    name: 'Миколай',
+                    fatherName: 'Іванович',
+                    surname: 'Іванов',
+                    age: 15
+                },
+                {
+                    name: 'Петро',
+                    fatherName: 'Іванович',
+                    surname: 'Іванов',
+                    married: true
+                }
+            ];
+            displaySortedTable(persons, "name", true);
+        }
+        
+        // 15 Calc Func
+        {
+            let priceForAManicure = 350; //ціна за манік'юр
+            let numOfTripsPerMonth = 1; //кількість походів до майстра манік'юру в місяць
+            let missedTrip = 2; //кількість пропущених походів до майстра манік'юру
+            let manicureFunc = (priceForAManicure, numOfTripsPerMonth, missedTrip) => {
+                let numOfTripPerYear = numOfTripsPerMonth * 12;
+                let result = (numOfTripPerYear - missedTrip) * priceForAManicure;
+                return result
+            }
+            let finalFunc = manicureFunc(priceForAManicure, numOfTripsPerMonth, missedTrip)
+            console.log(finalFunc)
+        }
+
+
+    </script>
+    
+   
+    
+    
+</body>
+
+</html>
