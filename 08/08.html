@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 blocks
+        {
+            let a = 10
+            {
+                let b = 20
+                {
+                    let c = 30
+                    //які тут будуть значення змінних a, b, c, d
+                    // a = 10, b = 20, c = 30, d = error
+                    b++
+                    a *= 10
+                }
+                {
+                    let c = 50
+                    //які тут будуть значення змінних a, b, c, d
+                    // a = 100, b = 21, c = 50, d = error
+                    b += 500
+                }
+                {
+                    const a = 100500
+                    const d = "value"
+                    //які тут будуть значення змінних a, b, c, d
+                    // a = 100500, b = 521, c = error, d = value
+                    {
+                        let a = -50
+                        b = 1000
+                        //які тут будуть значення змінних a, b, c, d
+                        // a = -50, b = 1000, c = error, d = value
+                    }
+                    //які тут будуть значення змінних a, b, c, d
+                    // a = 100500, b = 1000, c = error, d = value
+                }
+                //які тут будуть значення змінних a, b, c, d
+                // a = 100, b = 1000, c = error, d = error
+            }
+            //які тут будуть значення змінних a, b, c, d
+            // a = 100, b = error, c = error, d = error
+        }
+
+        // 2 comparison if
+        {
+            var age = + prompt("Скільки вам років?", "");
+            if (age < 0)
+                alert("Ви не народились");
+            else if (age < 18)
+                alert("школяр");
+            else if (age < 30)
+                alert("молодь");
+            else if (age < 45)
+                alert("зрілість");
+            else if (age < 60)
+                alert("захід сонця");
+            else if (age >= 60)
+                alert("як пенсія?");
+            else
+                alert("чи кіборг, чи KERNESS");
+        }
+        // 3 switch: sizes
+        {
+            let chooseSize = prompt("оберіть розмір: 40, 42, 44, 46, 48, 50, 52, 54");
+
+            switch (chooseSize) {
+                case "40":
+                    alert("відповідний італійський розмір: 38")
+                    break;
+                case "42":
+                    alert("відповідний італійський розмір: 40")
+                    break;
+                case "44":
+                    alert("відповідний італійський розмір: 42")
+                    break;
+                case "46":
+                    alert("відповідний італійський розмір: 44")
+                    break;
+                case "48":
+                    alert("відповідний італійський розмір: 46")
+                    break;
+                case "50":
+                    alert("відповідний італійський розмір: 48")
+                    break;
+                case "52":
+                    alert("відповідний італійський розмір: 50")
+                    break;
+                default:
+                    alert("Такого розміру немає")
+            }
+        }
+        // 4 switch: if
+        {
+            let color = prompt("Введіть колір", "");
+
+            if (color == "red") {
+                document.write("<div style='background-color: red;'>червоний</div>");
+                document.write("<div style='background-color: black; color: white;'>чорний</div>");
+            } else if (color == "black") {
+                document.write("<div style='background-color: black; color: white;'>чорний</div>");
+            } else if (color == "blue") {
+                document.write("<div style='background-color: blue;'>синій</div>");
+                document.write("<div style='background-color: green;'>зелений</div>");
+            } else if (color == "green") {
+                document.write("<div style='background-color: green;'>зелений</div>");
+            } else {
+                document.write("<div style='background-color: gray;'>Я не зрозумів</div>");
+            }
+        }
+        // 5 noswitch
+        {
+            const noSwitch = (key, cases, defaultKey = 'default') => {
+                if (key in cases) {
+                    return cases[key]()
+                } else {
+                    return cases[defaultKey]()
+                }
+            }
+            const drink = prompt("Що ви любите пити")
+            noSwitch(drink, {
+                воду: () => console.log('Найздоровіший вибір!'),
+                чай() {
+                    console.log('Смачна та корисна штука. Не перестарайтеся з цукром')
+                },
+                "пиво": () => console.log('Добре влітку, та в міру'),
+                віскі: function () {
+                    console.log('Та ви, батечку, естет! Не забудьте лід і сигару')
+                },
+                default() {
+                    console.log('шото я не зрозумів')
+                }
+            })
+        }
+    </script>
+
+    <!-- 6 closure calc -->
+    <div id="currency-buttons-container"></div>
+
+    <script>
+        fetch('https://open.er-api.com/v6/latest/USD')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data); 
+
+                const container = document.getElementById('currency-buttons-container');
+
+                // Перебір курсів і створення кнопок
+                for (const currency in data.rates) {
+                    if (data.rates.hasOwnProperty(currency)) {
+                        const button = document.createElement('button');
+                        button.innerText = currency;
+
+                        button.onclick = () => {
+                            // Запит суми від користувача
+                            const amount = prompt(`Введіть суму в ${currency}:`);
+                            // Конвертація суми в USD і виведення результату
+                            const convertedAmount = amount * data.rates[currency];
+                            alert(`${amount} ${currency} = ${convertedAmount.toFixed(2)} USD`);
+                        };
+                        container.appendChild(button);
+                    }
+                }
+            });
+    </script>
+    <!-- 6 closure calc -->
+
+    
+
+</body>
+
+</html>

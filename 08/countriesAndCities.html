@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <select id='countries'></select>
+    <select id='cities'></select>
+    <script>
+        fetch('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.min.json')
+            .then(res => res.json())
+            .then(data => {
+                const countriesSelect = document.getElementById('countries');
+                const citiesSelect = document.getElementById('cities');
+
+                // Наповнення select#countries елементами option з назвами країн
+                for (const country in data) {
+                    if (data.hasOwnProperty(country)) {
+                        const option = document.createElement('option');
+                        option.innerText = country;
+                        countriesSelect.appendChild(option);
+                    }
+                }
+
+                // Обробник події onchange для select#countries
+                countriesSelect.onchange = () => {
+                    const selectedCountry = countriesSelect.value;
+                    const cities = data[selectedCountry];
+
+                    // Видалення старого контенту з select#cities
+                    citiesSelect.innerHTML = '';
+
+                    // Додавання елементів option з містами обраної країни
+                    for (const city of cities) {
+                        const option = document.createElement('option');
+                        option.innerText = city;
+                        citiesSelect.appendChild(option);
+                    }
+                };
+            });
+
+    </script>
+</body>
+
+</html>
