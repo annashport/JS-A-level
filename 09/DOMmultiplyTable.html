@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            width: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+    function createMultiplicationTable() {
+        let tableContainer = document.body;
+
+        let table = document.createElement('table');
+        let headerRow = document.createElement('tr');
+        let emptyHeaderCell = document.createElement('th');
+
+        for (let i = 0; i <= 9; i++) {
+            let headerCell = document.createElement('th');
+            headerCell.innerText = i;
+            headerRow.appendChild(headerCell);
+        }
+        table.appendChild(headerRow);
+
+        // Створення рядків та комірок для таблиці множення
+        for (let i = 1; i <= 9; i++) {
+            let row = document.createElement('tr');
+            let rowHeaderCell = document.createElement('th');
+            rowHeaderCell.innerText = i;
+            row.appendChild(rowHeaderCell);
+
+            for (let j = 1; j <= 9; j++) {
+                let cell = document.createElement('td');
+                cell.innerText = i * j;
+                row.appendChild(cell);
+
+                // DOM: highlight cell
+                cell.addEventListener('mouseover', function () {
+                    this.style.backgroundColor = 'lightgreen';
+                });
+
+                cell.addEventListener('mouseout', function () {
+                    this.style.backgroundColor = '';
+                });
+
+                row.appendChild(cell);
+            }
+
+            table.appendChild(row);
+        }
+        tableContainer.appendChild(table);
+    }
+    createMultiplicationTable();
+</script>
+
+</body>
+</html>

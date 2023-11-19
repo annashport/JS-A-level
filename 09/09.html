@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 while confirm
+        {
+            let i = 0;
+            while (confirm("якщо натиснете скасувати, цикл завершиться")) {
+                i++
+            }
+        }
+        // 2 array fill
+        {
+            const arr = [];
+            let i = 0;
+            let element;
+            while (element = prompt("введіть новий елемент в масив")) {
+                arr.push(element)
+                i++
+            }
+            console.log(arr)
+        }
+        // 3 array fill nopush
+        {
+            let i = 0;
+            let element;
+            while (element = prompt("введіть новий елемент в масив")) {
+                arr[i] = (element)
+                i++
+            }
+            console.log(arr)
+        }
+        // 4 infinite probability
+        {
+            let i = 0;
+            while (Math.random() < 0.9) {
+                alert('цикл продовжується')
+                i++
+                if (Math.random() > 0.9) { //користувач натиснув скасування...
+                    break // перериваємо цикл
+                }
+            }
+            alert('кількість ітерацій:' + i)
+        }
+        // 5 empty loop
+        {
+            i = 0
+            while (prompt("натисніть ОК для зупинки циклу") == null) {
+                i++
+            }
+        }
+        // 6 progression sum
+        {
+            let n = prompt("введіть останній член прогресії");
+            let sum = 0;
+            for (let i = 1; i <= n; i += 3) {
+                sum += i
+            }
+            console.log(sum)
+        }
+        // 7 chess one line
+        {
+            let length = 5
+            let str = ""
+            for (let i = 0; i < length; i++) {
+                str += "#"
+            }
+            console.log(str)
+        }
+        // 8 numbers
+        {
+            let str = "";
+            for (let i = 0; i < 10; i++) {
+                for (let j = 0; j < 10; j++) {
+                    str += j;
+                }
+                str += '\n';
+            }
+            console.log(str);
+        }
+        // 9 chess
+        {
+            let rows = 10;
+            let columns = 13;
+            let result = "";
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < columns; j++) {
+                    let blackCell = (i + j) % 2 === 0 ? "#" : ".";
+                    result += blackCell;
+                }
+                result += "\n";
+            }
+            console.log(result);
+        }
+        // 10 cubes
+        {
+            let length = 5
+            let arr = []
+            for (let i = 0; i < length; i++) {
+                arr[i] = i ** 3
+            }
+            console.log(arr)
+        }
+        // 11 multiply table
+        {
+            let arr = [];
+            for (let i = 1; i <= 10; i++) {
+                arr[i - 1] = [];
+                for (let j = 1; j <= 10; j++) {
+                    arr[i - 1][j - 1] = i * j;
+                }
+            }
+            console.log(arr);
+        }
+        // 12 read array of objects
+        {
+            function readArrayOfObjects() {
+                const arrayOfObjects = [];
+                while (true) {
+                    const userObject = {};
+                    while (true) {
+                        const key = prompt("Введіть ключ (або натисніть 'Скасувати' для завершення введення):");
+                        if (key === null) {
+                            break;
+                        }
+                        const value = prompt(`Введіть значення для ключа '${key}':`);
+                        userObject[key] = value;
+                    }
+                    arrayOfObjects.push(userObject);
+                    const continueInput = confirm("Бажаєте ввести ще один об'єкт?");
+                    if (!continueInput) {
+                        break;
+                    }
+                }
+                return arrayOfObjects;
+            }
+            const resultArray = readArrayOfObjects();
+            console.log(resultArray);
+        }
+        // 13 Ромбік
+        {
+            function drawRomb(size) {
+                if (size % 2 === 0){
+                    size += 1
+                }
+
+                let romb = "";
+                for (let i = 1; i <= size; i++) {
+                    
+                    let spaces = Math.abs(Math.ceil(size / 2) - i);
+                    let hashes = size - 2 * spaces;
+
+                    for (let j = 0; j < spaces; j++) {
+                        romb += ".";
+                    }
+                    for (let k = 0; k < hashes; k++) {
+                        romb += "#";
+                    }
+                    for (let j = 0; j < spaces; j++) {
+                        romb += ".";
+                    }
+                    romb += "\n";
+                }
+                return romb;
+            }
+            let size = 11; 
+            console.log(drawRomb(size));
+        }
+        // DOM: multiply table
+        {
+            
+        }
+
+    </script>
+</body>
+
+</html>

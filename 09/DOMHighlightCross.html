@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table with Row and Column Highlight</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px;
+        }
+
+        td,
+        th {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .highlight-row td {
+            background-color: rgb(190, 238, 190);
+        }
+
+        .highlight-column {
+            background-color: rgb(190, 238, 190);
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createMultiplicationTable() {
+            let tableContainer = document.body;
+
+            let table = document.createElement('table');
+            let headerRow = document.createElement('tr');
+            let emptyHeaderCell = document.createElement('th');
+
+            for (let i = 0; i <= 9; i++) {
+                let headerCell = document.createElement('th');
+                headerCell.innerText = i;
+                headerRow.appendChild(headerCell);
+            }
+
+            table.appendChild(headerRow);
+
+            for (let i = 1; i <= 9; i++) {
+                let row = document.createElement('tr');
+                let rowHeaderCell = document.createElement('th');
+                rowHeaderCell.innerText = i;
+                row.appendChild(rowHeaderCell);
+
+                for (let j = 1; j <= 9; j++) {
+                    let cell = document.createElement('td');
+                    cell.innerText = i * j;
+
+                    cell.addEventListener('mouseover', function () {
+                        // Підсвічування комірки
+                        this.style.backgroundColor = 'lightgreen';
+
+                        // Підсвічування рядка
+                        row.classList.add('highlight-row');
+
+                        // Підсвічування стовпця
+                        table.querySelectorAll('td:nth-child(' + (j + 1) + ')').forEach(function (cell) {
+                            cell.classList.add('highlight-column');
+                        });
+                    });
+
+                    cell.addEventListener('mouseout', function () {
+                        this.style.backgroundColor = '';
+                        row.classList.remove('highlight-row');
+                        table.querySelectorAll('td:nth-child(' + (j + 1) + ')').forEach(function (cell) {
+                            cell.classList.remove('highlight-column');
+                        });
+                    });
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+            tableContainer.appendChild(table);
+        }
+        createMultiplicationTable();
+    </script>
+</body>
+
+
+</html>
