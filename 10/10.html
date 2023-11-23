@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1 createPerson
+        {
+            {
+                function createPerson(name, surname) {
+                    return {
+                        name: name,
+                        surname: surname,
+                        getFullName: function () {
+                            if (this.fatherName) {
+                                return `${this.name} ${this.fatherName} ${this.surname}`;
+                            } else {
+                                return `${this.name} ${this.surname}`;
+                            }
+                        }
+                    };
+                }
+
+                const a = createPerson("Вася", "Пупкін");
+                const b = createPerson("Ганна", "Іванова");
+                const c = createPerson("Єлизавета", "Петрова");
+
+                console.log(a.getFullName()); // Вася Пупкін
+                a.fatherName = 'Іванович';
+                console.log(a.getFullName()); // Вася Іванович Пупкін
+
+                console.log(b.getFullName()); // Ганна Іванова
+            }
+        }
+        // 2 createPersonClosure
+        {
+            function createPersonClosure(name, surname) {
+                let innerName = validateName(name);
+                let innerSurname = validateName(surname);
+                let innerFatherName = "";
+                let innerAge = 0;
+
+                function validateName(value) {
+                    if (typeof value === 'string' && value.length > 0) {
+                        return value.charAt(0).toUpperCase() + value.slice(1);
+                    }
+                    return "";
+                }
+
+                function validateAge(value) {
+                    if (typeof value === 'number' && value >= 0 && value <= 100) {
+                        return value;
+                    }
+                    return innerAge;
+                }
+
+                return {
+                    getName: function () {
+                        return innerName;
+                    },
+                    getSurname: function () {
+                        return innerSurname;
+                    },
+                    getFatherName: function () {
+                        return innerFatherName;
+                    },
+                    getAge: function () {
+                        return innerAge;
+                    },
+                    getFullName: function () {
+                        return `${innerSurname} ${innerName} ${innerFatherName}`;
+                    },
+                    setName: function (newName) {
+                        innerName = validateName(newName);
+                        return innerName;
+                    },
+                    setSurname: function (newSurname) {
+                        innerSurname = validateName(newSurname);
+                        return innerSurname;
+                    },
+                    setFatherName: function (newFatherName) {
+                        innerFatherName = validateName(newFatherName);
+                        return innerFatherName;
+                    },
+                    setAge: function (newAge) {
+                        innerAge = validateAge(newAge);
+                        return innerAge;
+                    },
+                    setFullName: function (newFullName) {
+                        const parts = newFullName.split(' ');
+                        if (parts.length === 3) {
+                            innerSurname = validateName(parts[0]);
+                            innerName = validateName(parts[1]);
+                            innerFatherName = validateName(parts[2]);
+                        }
+                        return `${innerSurname} ${innerName} ${innerFatherName}`;
+                    },
+                };
+            }
+
+            const a = createPersonClosure("Вася", "Пупкін");
+            const b = createPersonClosure("Ганна", "Іванова");
+
+            console.log(a.getName());
+            a.setAge(15);
+            console.log(a.getAge()); // 15
+            a.setAge(150); // не працює, поверне попереднє значення 15
+
+            b.setFullName("Петрова Ганна Миколаївна");
+            console.log(b.getFatherName()); // Миколаївна
+        }
+        // 3 createPersonClosureDestruct
+        {
+            function createPersonClosureDestruct({ name = "", surname = "", age = 0, fatherName = "" } = {}) {
+                let innerName = validateName(name);
+                let innerSurname = validateName(surname);
+                let innerFatherName = validateName(fatherName);
+                let innerAge = validateAge(age);
+
+                function validateName(value) {
+                    if (typeof value === 'string' && value.length > 0) {
+                        return value.charAt(0).toUpperCase() + value.slice(1);
+                    }
+                    return "";
+                }
+
+                function validateAge(value) {
+                    if (typeof value === 'number' && value >= 0 && value <= 100) {
+                        return value;
+                    }
+                    return innerAge;
+                }
+
+                return {
+                    getName: function () {
+                        return innerName;
+                    },
+                    getSurname: function () {
+                        return innerSurname;
+                    },
+                    getFatherName: function () {
+                        return innerFatherName;
+                    },
+                    getAge: function () {
+                        return innerAge;
+                    },
+                    getFullName: function () {
+                        return `${innerSurname} ${innerName} ${innerFatherName}`;
+                    },
+                    setName: function (newName) {
+                        innerName = validateName(newName);
+                        return innerName;
+                    },
+                    setSurname: function (newSurname) {
+                        innerSurname = validateName(newSurname);
+                        return innerSurname;
+                    },
+                    setFatherName: function (newFatherName) {
+                        innerFatherName = validateName(newFatherName);
+                        return innerFatherName;
+                    },
+                    setAge: function (newAge) {
+                        innerAge = validateAge(newAge);
+                        return innerAge;
+                    },
+                    setFullName: function (newFullName) {
+                        const parts = newFullName.split(' ');
+                        if (parts.length === 3) {
+                            innerSurname = validateName(parts[0]);
+                            innerName = validateName(parts[1]);
+                            innerFatherName = validateName(parts[2]);
+                        }
+                        return `${innerSurname} ${innerName} ${innerFatherName}`;
+                    },
+                };
+            }
+
+            const a = createPersonClosureDestruct({ name: "Вася", surname: "Пупкін" });
+            const b = createPersonClosureDestruct({ name: 'Миколай', age: 75 });
+
+            console.log(a.getName());
+            console.log(b.getAge()); // 75
+        }
+        // 4 isSorted
+        {
+            function isSorted(...args) {
+                for (let i = 1; i < args.length; i++) {
+                    if (typeof args[i] !== 'number' || args[i] <= args[i - 1]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            console.log(isSorted(1, 2, 3, 4)); // true
+            console.log(isSorted(5, 2, 8, 12)); // false
+            console.log(isSorted("a", "b", "c")); // false
+        }
+        // 5 Test isSorted
+        {
+            function isSorted(...args) {
+                for (let i = 1; i < args.length; i++) {
+                    if (typeof args[i] !== 'number' || args[i] <= args[i - 1]) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            const inputArray = [];
+            let userInput;
+            while (true) {
+                userInput = prompt('Введіть число (або натисніть Cancel для завершення):');
+                if (userInput === null) {
+                    break; // Вихід з циклу, якщо користувач натиснув Cancel
+                }
+                const number = parseFloat(userInput);
+                if (!isNaN(number)) {
+                    inputArray.push(number);
+                } else {
+                    alert('Будь ласка, введіть коректне число.');
+                }
+            }
+            const result = isSorted(...inputArray);
+            console.log(`Введені дані (${inputArray.join(', ')}): ${result ? 'впорядковані' : 'не впорядковані'}`);
+        }
+       
+    </script>
+</body>
+
+</html>
